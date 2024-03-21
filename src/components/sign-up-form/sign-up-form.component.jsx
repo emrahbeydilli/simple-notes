@@ -1,11 +1,8 @@
-// import { Link } from "react-router-dom";
-import styles from "./sign-in-form.module.css";
-
-const SignInForm = () => {
+const SignUpForm = () => {
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
-                <h3>Kullanıcı Girişi</h3>
+                <h3>Hesap Oluştur</h3>
                 <form className={styles.form}>
                     <input
                         label='E-Posta'
@@ -31,4 +28,4 @@ const SignInForm = () => {
     );
 }
 
-export default SignInForm;
+export default SignUpForm;

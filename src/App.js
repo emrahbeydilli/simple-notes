@@ -1,15 +1,23 @@
+import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
+
 import './App.css';
+
 import SignInForm from './components/sign-in-form/sign-in-form.component';
+import { Header } from "./routes/header/header.component";
 
 function App() {
-  const [currentUser,setCurrentUser] = useState(null);
+  const [currentUser,setCurrentUser] = useState();
   return (
     <main>
       {!currentUser ? (
         <SignInForm/>
       ) :(
-        <div>Kullanıcı {currentUser}</div>
+        <Routes>
+          <Route path='/' element={<Header/>}>
+
+          </Route>
+        </Routes>
       )
 
       }
