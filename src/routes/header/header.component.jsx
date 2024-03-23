@@ -2,14 +2,20 @@ import styles from "./header.module.css";
 import { Fragment} from "react";
 import { Outlet, Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({currentUser}) => {
+    console.log(currentUser);
     return (
         <Fragment>
             <header className={styles.container}>
-            <div>Hoşgeldin Emrah!</div>
+            <div>{currentUser && `Hoşgeldin ${currentUser}`}</div>
                 <nav>
                     <Link>Yardım</Link>
-                    <Link>Çıkış</Link>
+                    {currentUser ? <Link>Çıkış</Link> : (
+                        <Fragment>
+                            <Link to="/">Giriş</Link>
+                            <Link to="/signup">Üye Ol</Link>
+                        </Fragment>
+                    )}
                 </nav>
             </header >
             <Outlet />

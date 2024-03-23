@@ -1,6 +1,7 @@
 // import { Link } from "react-router-dom";
 import { useState } from "react";
 import styles from "./sign-in-form.module.css";
+import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase.utils";
 
 const defaultFormFields = {
     email: '',
@@ -12,12 +13,18 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormFields({ ...formFields, [name]: value });
+    };
+
     const handleSubmit = async (event) =>{
         event.preventDefault();
         try {
-            
+            const res = await signInAuthUserWithEmailAndPassword(email,password);
+            console.log(res);
         } catch (error) {
-            
+            console.log(error);
         }
 
     }
@@ -33,6 +40,7 @@ const SignInForm = () => {
                         required
                         name='email'
                         value={email}
+                        onChange={handleChange}
                         placeholder="e-posta"
                     />
                     <input
@@ -41,13 +49,11 @@ const SignInForm = () => {
                         required
                         name='password'
                         value={password}
+                        onChange={handleChange}
                         placeholder="şifre"
                     />
                     <button type='submit'>Giriş</button>
                 </form>
-                <div className={styles.help}>
-                   {/* <Link to="/">Üye Ol</Link> */}
-                </div>
             </div>
         </div>
     );
