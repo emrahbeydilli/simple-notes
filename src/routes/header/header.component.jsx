@@ -1,3 +1,4 @@
+import styles from "./header.module.css";
 import { Fragment} from "react";
 import { Outlet, Link } from "react-router-dom";
 
@@ -5,14 +6,14 @@ const Header = () => {
     return (
         <Fragment>
             <header className={styles.container}>
-                <div>{currentUser && currentUser.displayName}</div>
+            <div>Hoşgeldin Emrah!</div>
                 <nav>
-                    <Link onClick={handleHelp}>Yardım</Link>
-                    <Link onClick={signOutUserFromFirestore}>Çıkış</Link>
+                    <Link>Yardım</Link>
+                    <Link>Çıkış</Link>
                 </nav>
             </header >
             <Outlet />
-        </Fragment>j
+        </Fragment>
     );
 }
 
