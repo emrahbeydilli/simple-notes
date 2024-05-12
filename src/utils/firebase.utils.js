@@ -60,9 +60,10 @@ export const createUserDocumentFromAuth = async (
         displayName,
         email,
         createdAt,
+        ...additionalInformation
       });
       await updateProfile(auth.currentUser,{
-        displayName: additionalInformation.displayName
+        ...additionalInformation
       });
     } catch (error) {
       console.log('error creating the user', error.message);
