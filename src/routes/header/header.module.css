@@ -11,3 +11,6 @@ nav a{
     color: white;
     padding: 0 0 0 10px;
 }
+.username {
+    text-transform: capitalize;
+}

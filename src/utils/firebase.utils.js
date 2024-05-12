@@ -2,7 +2,14 @@
 import { initializeApp } from "firebase/app";
 
 // Authentication SDK
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile
+} from "firebase/auth";
 
 // Firestore SDK
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
@@ -52,7 +59,6 @@ export const createUserDocumentFromAuth = async (
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
-    console.log(additionalInformation);
     const createdAt = new Date();
 
     try {
@@ -62,7 +68,7 @@ export const createUserDocumentFromAuth = async (
         createdAt,
         ...additionalInformation
       });
-      await updateProfile(auth.currentUser,{
+      await updateProfile(auth.currentUser, {
         ...additionalInformation
       });
     } catch (error) {
@@ -72,3 +78,9 @@ export const createUserDocumentFromAuth = async (
 
   return userDocRef;
 };
+
+// Sign Out User From Auth
+export const signOutUser = async () => await signOut(auth);
+
+// Kulllanıcının Authentication state'dindeki değişikliklerin takip edilmesi
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);

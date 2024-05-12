@@ -35,7 +35,9 @@ const SignUpForm = () => {
             setFormFields(defaultFormFields);
             navitage("/");
         } catch (error) {
-            console.log(error);
+            if (error.code === "auth/email-already-in-use") {
+                alert("Kullanıcı kayıtlı!");
+            }
         }
     }
     return (
