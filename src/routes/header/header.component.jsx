@@ -3,7 +3,6 @@ import { Fragment} from "react";
 import { Outlet, Link } from "react-router-dom";
 
 const Header = ({currentUser}) => {
-    console.log(currentUser);
     return (
         <Fragment>
             <header className={styles.container}>

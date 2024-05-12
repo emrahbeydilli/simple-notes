@@ -24,7 +24,9 @@ const SignInForm = () => {
             const res = await signInAuthUserWithEmailAndPassword(email,password);
             console.log(res);
         } catch (error) {
-            console.log(error);
+            if (error.code === "auth/invalid-credential") {
+                alert("Hatalı bilgiler!");
+            }
         }
 
     }

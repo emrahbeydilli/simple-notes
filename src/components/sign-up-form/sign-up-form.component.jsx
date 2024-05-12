@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./sign-up-form.module.css"
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase.utils";
 
 const defaultFormFields = {
     displayName: '',
@@ -12,6 +13,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
+    const navitage = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -27,9 +29,13 @@ const SignUpForm = () => {
         }
 
         try {
-            
+            const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            const res = await createUserDocumentFromAuth(user, { displayName });
+            if (res) alert("Kullanıcı oluşturuldu! Giriş Yapabilirsiniz!")
+            setFormFields(defaultFormFields);
+            navitage("/");
         } catch (error) {
-            
+            console.log(error);
         }
     }
     return (

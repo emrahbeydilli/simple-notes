@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 
 // Authentication SDK
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 // Firestore SDK
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
@@ -31,10 +31,18 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
+// Sending Auth with E-mail & Pass
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+
 // Creating User with Authentication
 export const createUserDocumentFromAuth = async (
   userAuth,
-  additionalInformation = {}
+  additionalInformation
 ) => {
   if (!userAuth) return;
 
@@ -44,6 +52,7 @@ export const createUserDocumentFromAuth = async (
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
+    console.log(additionalInformation);
     const createdAt = new Date();
 
     try {
@@ -51,7 +60,9 @@ export const createUserDocumentFromAuth = async (
         displayName,
         email,
         createdAt,
-        ...additionalInformation,
+      });
+      await updateProfile(auth.currentUser,{
+        displayName: additionalInformation.displayName
       });
     } catch (error) {
       console.log('error creating the user', error.message);
