@@ -12,7 +12,7 @@ import { onAuthStateChangedListener } from './utils/firebase.utils';
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log(user);
+
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {

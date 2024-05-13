@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <Fragment>
             <header className={styles.container}>
-            <div className={styles.username}>{user && `Hoşgeldin ${user.displayName}`}</div>
+            <div className={styles.username}>{user && user.displayName}</div>
                 <nav>
                     <Link>Yardım</Link>
                     {user ? <Link onClick={signOutUser}>Çıkış</Link> : (
