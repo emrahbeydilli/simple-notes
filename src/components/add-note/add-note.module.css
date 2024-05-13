@@ -1,0 +1,37 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 40px;
+    margin: 0 20px;
+}
+.formContainer{
+    border: 1px dashed black;
+    border-radius: 5px;
+    padding: 5px 20px 30px;
+    width: 500px;
+}
+.form  {
+    display: flex;
+    flex-direction: column;
+}
+input{
+    margin-bottom: 10px;
+    padding: 10px;
+}
+button{
+    background-color: #333;
+    color: whitesmoke;
+    border: 0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+textarea{
+    max-width: 100%;
+    min-height: 300px;
+    font-size: 0.8rem;
+    padding: 10px;
+}

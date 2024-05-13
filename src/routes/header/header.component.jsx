@@ -1,13 +1,25 @@
 import styles from "./header.module.css";
 import { Fragment, useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../utils/userContext";
 import { signOutUser } from "../../utils/firebase.utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faUserPlus, faRightToBracket, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { 
+    faPlus,
+    faUserPlus,
+    faRightToBracket,
+    faRightFromBracket,
+    faStickyNote
+} from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
     const { user } = useContext(UserContext);
+    const natigate = useNavigate();
+
+    const logOut = async () => {
+        await signOutUser();
+        natigate("/");
+    }
     return (
         <Fragment>
             <header className={styles.container}>
@@ -15,7 +27,14 @@ const Header = () => {
                 <nav>
                     {user ? (
                         <Fragment>
-                            <Link>
+                            <Link to="/">
+                                <FontAwesomeIcon
+                                    icon={faStickyNote}
+                                    title="Notları Listele"
+                                    size="lg"
+                                />
+                            </Link>
+                            <Link to="/addnote">
                                 <FontAwesomeIcon
                                     icon={faPlus}
                                     title="Not Ekle"
@@ -23,7 +42,7 @@ const Header = () => {
 
                                 />
                             </Link>
-                            <Link onClick={signOutUser}>
+                            <Link onClick={logOut}>
                                 <FontAwesomeIcon
                                     icon={faRightFromBracket}
                                     title="Çıkış"

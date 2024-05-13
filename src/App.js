@@ -9,6 +9,7 @@ import SignInForm from './components/sign-in-form/sign-in-form.component';
 import SignUpForm from "./components/sign-up-form/sign-up-form.component";
 import { UserContext } from "./utils/userContext";
 import { onAuthStateChangedListener } from './utils/firebase.utils';
+import AddNote from './components/add-note/add-note.component';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,7 +35,10 @@ function App() {
                   <Route path='/signup' element={<SignUpForm />} />
                 </Fragment>
               ) : (
-                <Route index element={<Home />} />
+                <Fragment>
+                  <Route index element={<Home />} />
+                  <Route path="/addnote" element={<AddNote/>}/>
+                </Fragment>
               )
             }
           </Route>

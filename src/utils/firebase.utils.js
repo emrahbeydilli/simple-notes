@@ -66,6 +66,7 @@ export const createUserDocumentFromAuth = async (
         displayName,
         email,
         createdAt,
+        notes: [],
         ...additionalInformation
       });
       await updateProfile(auth.currentUser, {
