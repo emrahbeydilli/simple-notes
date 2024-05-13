@@ -31,7 +31,7 @@ const SignUpForm = () => {
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
             const res = await createUserDocumentFromAuth(user, { displayName });
-            if (res) alert("Kullanıcı oluşturuldu! Giriş Yapabilirsiniz!")
+            if (res) alert("Kullanıcı oluşturuldu! Giriş Yapabilirsiniz!");
             setFormFields(defaultFormFields);
             navitage("/");
         } catch (error) {

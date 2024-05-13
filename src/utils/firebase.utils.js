@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 
 // Firestore SDK
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,7 +28,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 
-// Preparing Auth and Firestore to use in Our App
+// Preparing auth and firestore to use in our app
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
@@ -38,7 +38,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
-// Sending Auth with E-mail & Pass
+// Sending auth with email & pass
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
@@ -46,7 +46,7 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 
-// Creating User with Authentication
+// Creating user with authentication
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation
@@ -54,7 +54,6 @@ export const createUserDocumentFromAuth = async (
   if (!userAuth) return;
 
   const userDocRef = doc(db, 'users', userAuth.uid);
-
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -69,7 +68,7 @@ export const createUserDocumentFromAuth = async (
         notes: [],
         ...additionalInformation
       });
-      await updateProfile(auth.currentUser, {
+      await updateProfile(userAuth, {
         ...additionalInformation
       });
     } catch (error) {
@@ -80,8 +79,18 @@ export const createUserDocumentFromAuth = async (
   return userDocRef;
 };
 
-// Sign Out User From Auth
+// Sign out user from auth
 export const signOutUser = async () => await signOut(auth);
 
-// Kulllanıcının Authentication state'dindeki değişikliklerin takip edilmesi
+// Check Authentication State Change
 export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+
+// Add note to Firestore database
+export const addUserNotesToFirestore = async (uid, formFields) => {
+  if (!uid) return;
+
+  const userDocRef = doc(db, 'users', uid);
+  await updateDoc(userDocRef,{notes: arrayUnion(formFields)});
+
+  return userDocRef;
+}
