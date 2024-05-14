@@ -1,4 +1,3 @@
-// import ClipLoader from "react-spinners/ClipLoader";
 import { useContext, useEffect, useState } from "react";
 import styles from "./notes.module.css";
 import { UserContext } from "../../utils/userContext";
@@ -16,7 +15,7 @@ const Home = () => {
             setNotes(snapshot.data().notes);
         });
         return () => unSub();
-    }, []);
+    }, [user]);
 
     return ( 
         <div className={styles.container}>
