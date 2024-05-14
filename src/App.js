@@ -3,7 +3,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import './App.css';
 
-import Home from "./routes/home/home.component";
+import Notes from "./components/notes/notes.component";
 import Header from "./routes/header/header.component";
 import SignInForm from './components/sign-in-form/sign-in-form.component';
 import SignUpForm from "./components/sign-up-form/sign-up-form.component";
@@ -36,7 +36,7 @@ function App() {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <Route index element={<Home />} />
+                  <Route index element={<Notes />} />
                   <Route path="/addnote" element={<AddNote/>}/>
                 </Fragment>
               )

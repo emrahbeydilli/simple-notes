@@ -12,7 +12,8 @@ import {
 } from "firebase/auth";
 
 // Firestore SDK
-import { arrayUnion, doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
+import { 
+  arrayUnion, doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
